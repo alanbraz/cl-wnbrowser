@@ -1,4 +1,4 @@
-FROM fukamachi/sbcl:2.3.5
+FROM clfoundation/sbcl
 
 RUN apt update
 RUN apt-get install -y build-essential
