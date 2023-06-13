@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 clfoundation/sbcl:2.1.5-slim
+FROM fukamachi/sbcl:2.3.5
 
 RUN apt update
 RUN apt-get install -y build-essential
@@ -20,13 +20,10 @@ COPY . ./cl-wnbrowser
 
 # RUN sbcl --eval '(ql:quickload :graph-algorithms)' --quit
 
-
 WORKDIR /root
 COPY .sbclrc .
 RUN sbcl --eval '(ql:quickload :cl-wnbrowser)' --eval '(sb-ext:save-lisp-and-die "wnb" :executable t)' --quit
-COPY run2.sh .
 
 EXPOSE 8080
 
-CMD ["bash", "run2.sh"]
-# CMD "./wnb --eval '(cl-wnbrowser::start-server 8080)'"
+CMD ["./wnb", "--eval", "'(cl-wnbrowser::start-server 8080)'"]
